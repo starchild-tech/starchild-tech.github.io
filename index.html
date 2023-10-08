@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>starchild tech</title>
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+        />
+        <style>
+            @import url(https://db.onlinewebfonts.com/c/42fa729acc4583258af1e6d3f6765017?family=Como+W01+Regular);
+
+            @font-face {
+                font-family: "Como W01 Regular";
+                src: url("https://db.onlinewebfonts.com/t/42fa729acc4583258af1e6d3f6765017.eot");
+                src: url("https://db.onlinewebfonts.com/t/42fa729acc4583258af1e6d3f6765017.eot?#iefix")
+                        format("embedded-opentype"),
+                    url("https://db.onlinewebfonts.com/t/42fa729acc4583258af1e6d3f6765017.woff2")
+                        format("woff2"),
+                    url("https://db.onlinewebfonts.com/t/42fa729acc4583258af1e6d3f6765017.woff")
+                        format("woff"),
+                    url("https://db.onlinewebfonts.com/t/42fa729acc4583258af1e6d3f6765017.ttf")
+                        format("truetype"),
+                    url("https://db.onlinewebfonts.com/t/42fa729acc4583258af1e6d3f6765017.svg#Como W01 Regular")
+                        format("svg");
+            }
+
+            * {
+                box-sizing: border-box;
+            }
+
+            body {
+                font-family: "Como W01 Regular";
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background-color: #c24f60;
+                color: #cccbcada;
+                margin: 0;
+                min-height: 100vh;
+            }
+
+            #text-container {
+                font-size: 24px;
+                display: inline-block;
+                border-right: 2px solid #cccbcada;
+                padding-right: 10px;
+            }
+
+            .cursor {
+                display: inline-block;
+                width: 2px;
+                height: 24px;
+                animation: blinkingCursor 0.75s infinite;
+            }
+
+            @keyframes blinkingCursor {
+                0% {
+                    opacity: 0;
+                }
+                50% {
+                    opacity: 1;
+                }
+                100% {
+                    opacity: 0;
+                }
+            }
+
+            footer {
+                position: absolute;
+                bottom: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+            }
+
+            a {
+                color: #cccbcada;
+                text-decoration: none;
+            }
+
+            a:hover {
+                text-decoration: underline;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="text-container"></div>
+        <span class="cursor"></span>
+
+        <footer>
+            <a href="https://www.instagram.com/starchild.tech/" target="_blank">
+                <i class="fa-brands fa-instagram"></i>
+            </a>
+        </footer>
+
+        <script>
+            const textContainer = document.getElementById("text-container");
+            const mainText = "starchild tech...";
+            const soonText = "soon...";
+            const typeDelay = 100;
+            const eraseDelay = 30;
+            let index = 0;
+            let currentText = mainText;
+
+            function typeText() {
+                if (index < currentText.length) {
+                    textContainer.textContent += currentText[index];
+                    index++;
+                    setTimeout(typeText, typeDelay);
+                } else if (currentText === mainText) {
+                    setTimeout(eraseText, 3000);
+                } else {
+                    setTimeout(restart, 3000);
+                }
+            }
+
+            function eraseText() {
+                if (index >= 0) {
+                    textContainer.textContent = textContainer.textContent.slice(
+                        0,
+                        -1
+                    );
+                    index--;
+                    setTimeout(eraseText, eraseDelay);
+                } else if (currentText === mainText) {
+                    index = 0;
+                    currentText = soonText;
+                    typeText();
+                } else {
+                    restart();
+                }
+            }
+
+            function restart() {
+                index = 0;
+                currentText = mainText;
+                textContainer.textContent = "";
+                typeText();
+            }
+
+            typeText();
+        </script>
+    </body>
+</html>
